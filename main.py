@@ -15,7 +15,7 @@ from telebot.apihelper import ApiTelegramException
                
                            
 DATA_FILE ="data.json"
-BOT_TOKEN = "7962307533:AAGFuMQewbjFnXURdOJYSiCXRguohrIzE14"
+BOT_TOKEN = "" # Put your token here
 
 if not BOT_TOKEN:
     raise SystemExit("Please set TELEGRAM_BOT_TOKEN environment variable.")
