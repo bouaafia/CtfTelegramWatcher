@@ -15,10 +15,10 @@ from telebot.apihelper import ApiTelegramException
                
                            
 DATA_FILE ="data.json"
-BOT_TOKEN = "" # Your telegram bot token
+BOT_TOKEN = "7962307533:AAGFuMQewbjFnXURdOJYSiCXRguohrIzE14"
 
 if not BOT_TOKEN:
-    raise SystemExit("Please set BOT_TOKEN  variable.")
+    raise SystemExit("Please set TELEGRAM_BOT_TOKEN environment variable.")
 
                                                  
 DEFAULT_DATA = {
@@ -577,7 +577,12 @@ def cmd_list_channels(message: types.Message):
         return
     lines = ["<b>Channels</b>"]
     for ch in channels:
-        lines.append(f"• <code>{html.escape(str(ch))}</code>")
+        try:
+            user = bot.get_chat(ch)
+            user_repr = f"@{user.username}" if user.username else f"{user.title or user.first_name}"
+            lines.append(f"• <code>{html.escape(str(ch))}</code> - ({user_repr})")
+        except ApiTelegramException:
+            lines.append(f"• <code>{html.escape(str(ch))}</code> (unknown)")
     bot.reply_to(message, "\n".join(lines))
 
 
